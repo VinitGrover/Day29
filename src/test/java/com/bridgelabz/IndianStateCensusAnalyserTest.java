@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.rules.ExpectedException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 public class IndianStateCensusAnalyserTest {
-    
+
+    private static final String INVALID_DELIMITER_FILE_PATH =  "D:\\GitProgram\\Day29\\src\\main\\resources\\IndianStateCensusData.csv";
     private static final String INDIA_CENSUS_CSV_FILE_PATH= "D:\\GitProgram\\Day29\\src\\main\\resources\\IndianStateCensusData.csv";
     private static final String WRONG_CSV_FILE_PATH= "D:\\GitProgram\\Day2\\src\\main\\resources\\IndianStateCensusData.csv";
 
@@ -36,5 +36,21 @@ public class IndianStateCensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndianCensusDataCSVFile_whenWithWrongDelimiters_shouldThrowException()
+    {
+        CensusAnalyzer censusAnalyser = new CensusAnalyzer();
+        ExpectedException exceptionRule =  ExpectedException.none();
+        exceptionRule.expect(CensusAnalyserException.class);
+        try
+        {
+            censusAnalyser.loadIndiaCensusData(INVALID_DELIMITER_FILE_PATH);
+        }
+        catch (CensusAnalyserException e)
+        {
+            Assertions.assertNotSame(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+        }
+    }
 }
+
 
