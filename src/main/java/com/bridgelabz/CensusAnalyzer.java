@@ -9,6 +9,7 @@ import java.util.Iterator;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+
 public class CensusAnalyzer {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 
@@ -16,11 +17,13 @@ public class CensusAnalyzer {
 
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
 
+
             CsvToBeanBuilder<IndiaCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<IndiaCensusCSV>(
                     reader);
             csvToBeanBuilder.withType(IndiaCensusCSV.class);
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
+
 
             Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
             int numberOfEntries = 0;
@@ -29,6 +32,30 @@ public class CensusAnalyzer {
 
                 numberOfEntries++;
                 IndiaCensusCSV censusData = censusCSVIterator.next();
+            }
+            return numberOfEntries;
+        } catch (IOException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (RuntimeException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER);
+        }
+    }
+
+    public int loadIndiaStateCode(String csvFilePath) throws CensusAnalyserException {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+            CsvToBeanBuilder<IndiaStateCodeCSV> csvToBeanBuilder = new CsvToBeanBuilder<IndiaStateCodeCSV>(reader);
+            csvToBeanBuilder.withType(IndiaStateCodeCSV.class);
+            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+            CsvToBean<IndiaStateCodeCSV> csvToBean = csvToBeanBuilder.build();
+
+            Iterator<IndiaStateCodeCSV> censusCSVIterator = csvToBean.iterator();
+            int numberOfEntries = 0;
+            while (censusCSVIterator.hasNext()) {
+                numberOfEntries++;
+                IndiaStateCodeCSV censusData = censusCSVIterator.next();
             }
             return numberOfEntries;
         } catch (IOException e) {

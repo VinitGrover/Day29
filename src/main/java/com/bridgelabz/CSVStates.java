@@ -7,8 +7,7 @@ import java.io.Reader;
 import com.opencsv.CSVReader;
 
 public class CSVStates {
-    static String CVSfile = "C:\\Users\\shard\\eclipse-workspace\\Advance java"
-            + "\\IndianStateCensusAnalyserProblem\\IndianStateCensusAnalyserProblem\\src\\Resource\\IndiaStateCode.csv";
+    static String CVSfile = "D:\\GitProgram\\Day29\\src\\main\\resources\\IndianStateCode.csv";
     static int count = 0;
 
     public static void getDataFromCSVfile(String fileURl) {
