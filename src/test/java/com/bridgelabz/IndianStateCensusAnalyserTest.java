@@ -8,8 +8,6 @@ public class IndianStateCensusAnalyserTest {
     
     private static final String INDIA_CENSUS_CSV_FILE_PATH= "D:\\GitProgram\\Day29\\src\\main\\resources\\IndianStateCensusData.csv";
 
-
-    
     @Test
     public void givenIndianCensusDataCSVFileReturnsCorrectRecords()
     {
@@ -19,6 +17,8 @@ public class IndianStateCensusAnalyserTest {
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             assertEquals(29,numOfRecords);
         }
-        catch (CensusAnalyserException e) { }
+        catch (CensusAnalyserException e) {
+            System.out.println("File not found");
+        }
     }
 }
